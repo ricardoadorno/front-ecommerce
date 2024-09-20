@@ -9,11 +9,11 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       {
-        path: "/",
+        path: "/front-ecommerce/",
         element: <Home />,
       },
       {
-        path: "/dashboard",
+        path: "/front-ecommerce/dashboard",
         element: <DashBoard />,
       }
     ]
