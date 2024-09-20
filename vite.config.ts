@@ -5,7 +5,7 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/front-ecommerce',
+  base: '/front-ecommerce/',
   test: {
     environment: 'jsdom',
   },
