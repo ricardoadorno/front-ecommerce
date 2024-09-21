@@ -2,17 +2,16 @@ import { cn } from '@/lib/utils';
 import { Check, Dot } from 'lucide-react';
 import React from 'react';
 
+const listDecorationMap = {
+    dot: <Dot className="size-6" />,
+    check: <Check className="size-4" />,
+    numeric: (index: number) => <span className='w-4'>{index + 1}.</span>
+}
 interface ListProps<T> extends React.HTMLAttributes<HTMLUListElement> {
     items?: T[] | null;
     listDecoration?: keyof typeof listDecorationMap;
     customKey?: keyof T;
     renderItem: (item: T, options: ListItemOptions) => React.ReactNode;
-}
-
-const listDecorationMap = {
-    dot: <Dot className="size-6" />,
-    check: <Check className="size-4" />,
-    numeric: (index: number) => <span className='w-4'>{index + 1}.</span>
 }
 
 

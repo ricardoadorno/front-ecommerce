@@ -1,17 +1,45 @@
+import ThemeSwitch from '@/components/molecules/theme-switch'
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
+import Text from '@/components/ui/text'
 import { Outlet } from 'react-router-dom'
+
+const items = [
+    {
+        label: 'Home',
+        href: '/'
+    },
+    {
+        label: 'About me',
+        href: '/about-me'
+    }
+]
+
+const Nav = () => {
+
+    return (
+        <NavigationMenu>
+            <NavigationMenuList>
+                {
+                    items.map((item, index) => (
+                        <NavigationMenuItem key={index}>
+                            <NavigationMenuLink href={item.href} className={navigationMenuTriggerStyle()}>{item.label}</NavigationMenuLink>
+                        </NavigationMenuItem>
+                    ))
+                }
+            </NavigationMenuList>
+        </NavigationMenu>
+    )
+}
 
 export default function DefaultLayout() {
     return (
         <div className='container mx-auto'>
             <header className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                <h1 className="text-2xl font-bold ">Ricardo Adorno</h1>
-                <nav>
-                    <ul className="flex space-x-4">
-                        <li><a href="#about" >About</a></li>
-                        <li><a href="#projects" >Projects</a></li>
-                        <li><a href="#contact" >Contact</a></li>
-                    </ul>
-                </nav>
+                <Text as='h2' variant={'subtitle2'}>Ricardo Adorno</Text>
+
+                <Nav />
+
+                <ThemeSwitch />
             </header>
             <main className='max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8'>
                 <Outlet />
