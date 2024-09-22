@@ -1,9 +1,9 @@
-import { createBrowserRouter, createHashRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import Home from './pages/home';
 import DashBoard from './pages/dashboard';
 import DefaultLayout from './layout/default';
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
