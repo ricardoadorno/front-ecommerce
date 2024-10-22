@@ -1,5 +1,7 @@
 
-const setCookies = (name: string, value: string, hours: number) => {
+const DEFAULT_EXPIRATION_HOURS = 4;
+
+const setCookie = (name: string, value: string, hours: number = DEFAULT_EXPIRATION_HOURS) => {
     let expires = '';
     if (hours) {
         const date = new Date();
@@ -9,7 +11,7 @@ const setCookies = (name: string, value: string, hours: number) => {
     document.cookie = `${name}=${value || ''}${expires}; path=/`;
 }
 
-const getCookies = (name: string) => {
+const getCookie = (name: string) => {
     const nameEQ = `${name}=`;
     const ca = document.cookie.split(';');
     for (let i = 0; i < ca.length; i++) {
@@ -20,8 +22,8 @@ const getCookies = (name: string) => {
     return null;
 }
 
-const eraseCookies = (name: string) => {
+const eraseCookie = (name: string) => {
     document.cookie = `${name}=; Max-Age=-99999999;`;
 }
 
-export { setCookies, getCookies, eraseCookies };
+export { setCookie, getCookie, eraseCookie };

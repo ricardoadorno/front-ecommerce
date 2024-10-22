@@ -8,12 +8,12 @@ export default function ThemeSwitch() {
     const [, toggleTheme] = useAtom(toggleThemeAtom);
 
     return (
-        <div>
-            <Switch
-                checked={theme === 'dark'}
-                onCheckedChange={toggleTheme}
-                thumbChildren={theme === 'dark' ? <MoonIcon className='size-4' /> : <SunIcon className='size-4' />}
-            />
-        </div>
+        <Switch
+            aria-label='Toggle theme'
+            title='Toggle theme'
+            checked={theme === 'dark'}
+            onCheckedChange={toggleTheme}
+            thumbChildren={theme === 'dark' ? <MoonIcon className='size-4' /> : <SunIcon className='size-4' />}
+        />
     );
 }

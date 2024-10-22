@@ -9,6 +9,16 @@ import router from './router';
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { themeAtom } from './stores/theme-store';
+import { Toaster } from './components/ui/toaster';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false
+    },
+  },
+})
 
 export default function App() {
   const [theme] = useAtom(themeAtom)
@@ -20,11 +30,10 @@ export default function App() {
     root.classList.add(theme)
   }, [theme])
 
-  const queryClient = new QueryClient()
-
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Toaster />
     </QueryClientProvider>
   )
 }

@@ -1,15 +1,26 @@
-import Hero from '@/components/sections/hero';
-import Text from '@/components/ui/text';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useState } from 'react';
-import ThemeSwitch from '@/components/molecules/theme-switch';
+import useApi from '@/hooks/use-api';
+import { useQuery } from '@tanstack/react-query';
 
-export default function Home() {
-    const [count, setCount] = useState(0);
 
+export default function HomePage() {
+    const { userService } = useApi()
+
+    const { data: users } = useQuery({
+        queryKey: ['usersList'],
+        queryFn: () => userService().list()
+    })
+
+    if (!users) return <p>Loading...</p>
     return (
         <>
-            <Hero />
+            {
+                users.map(user => (
+                    <div key={user.id}>
+                        <p>{user.username}</p>
+                        <p>{user.email}</p>
+                    </div>
+                ))
+            }
         </ >
     )
 }
