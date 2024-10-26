@@ -16,6 +16,8 @@ export default (path: string, headers?: any): AxiosInstance =>
         ...config,
         baseURL: `${config.baseURL}/${path}`,
         headers: {
+
             common: headers,
         },
     });
+

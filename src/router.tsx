@@ -1,19 +1,19 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
-import HomePage from './pages/home';
+import HomePage from './pages/home-page';
 import DefaultLayout from './layout/default';
 import PublicLayout from './layout/public';
 import LoginPage from './pages/public/login';
 import RegisterPage from './pages/public/register';
 import { getCookie } from './services/cookies';
 import { toast } from './hooks/use-toast';
-import AboutPage from './pages/about';
+import AboutPage from './pages/about-page';
 import ShopPage from './pages/shop/shop-page';
-import ItemPage from './pages/item';
+import ItemPage from './pages/item-page';
 
-const ProtectedRoute = ({ element }: { element: React.ReactNode }) => {
-  const access_token = getCookie('access_token');
+const ProtectedRoute: any = ({ element }: { element: React.ReactNode }) => {
+  const accessToken = getCookie('accessToken');
 
-  if (!access_token) {
+  if (!accessToken) {
     toast({
       title: 'Session expired',
       variant: 'destructive'

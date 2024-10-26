@@ -28,7 +28,8 @@ export default function Navbar() {
     const { user } = useUserData()
 
     const logout = () => {
-        eraseCookie('access_token')
+        eraseCookie('accessToken')
+        eraseCookie('refreshToken')
         navigate('/')
     }
 

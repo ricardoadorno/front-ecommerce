@@ -20,14 +20,15 @@ export default function LoginPage() {
 
         const authService = new AuthService()
 
-        const { access_token } = await authService.login(form)
+        const { accessToken, refreshToken } = await authService.login(form)
 
-        setCookie('access_token', access_token)
+        setCookie('accessToken', accessToken)
+        setCookie('refreshToken', refreshToken)
 
-        toast({
-            title: 'Login successful',
-            variant: 'primary'
-        })
+        // toast({
+        //     title: 'Login successful',
+        //     variant: 'primary'
+        // })
 
         navigate('/home')
     }
@@ -35,7 +36,6 @@ export default function LoginPage() {
     return (
         <form onSubmit={handleSubmit} className='flex flex-col gap-8 h-full justify-center'>
             <Text variant='subtitle1' className='text-center'>Login</Text>
-
             <Input
                 type='email'
                 placeholder='Email'
@@ -53,7 +53,6 @@ export default function LoginPage() {
             >
                 Login
             </Button>
-
             <Text
                 variant={'anchor'}
                 className='text-center'

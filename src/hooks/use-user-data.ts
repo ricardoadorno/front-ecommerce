@@ -4,7 +4,7 @@ import { jwtDecode, JwtPayload } from 'jwt-decode'
 import { useEffect, useState } from 'react'
 
 export default function useUserData() {
-    const token = getCookie('access_token') ?? ''
+    const token = getCookie('accessToken') ?? ''
 
     const decodedData = jwtDecode<JwtPayload & User>(token)
 
