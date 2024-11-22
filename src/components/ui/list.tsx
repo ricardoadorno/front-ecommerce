@@ -1,61 +1,71 @@
-import { cn } from '@/lib/utils';
-import { Check, Dot } from 'lucide-react';
-import React from 'react';
+import { cn } from "@/lib/utils";
+import { Check, Dot } from "lucide-react";
+import React from "react";
 
 const listDecorationMap = {
-    dot: <Dot className="size-6" />,
-    check: <Check className="size-4" />,
-    numeric: (index: number) => <span className='w-4'>{index + 1}.</span>
-}
+  dot: <Dot className="size-6" />,
+  check: <Check className="size-4" />,
+  numeric: (index: number) => <span className="w-4">{index + 1}.</span>,
+};
 interface ListProps<T> extends React.HTMLAttributes<HTMLUListElement> {
-    items?: T[] | null;
-    listDecoration?: keyof typeof listDecorationMap;
-    customKey?: keyof T;
-    renderItem: (item: T, options: ListItemOptions) => React.ReactNode;
+  items?: T[] | null;
+  listDecoration?: keyof typeof listDecorationMap;
+  customKey?: keyof T;
+  renderItem: (item: T, options: ListItemOptions) => React.ReactNode;
 }
 
-
-export function List<T>({ items, renderItem, customKey, listDecoration, ...props }: ListProps<T>) {
-
-    if (!items) return null;
-    return (
-        <ul {...props}>
-            {items.map((item, index) => (
-                <React.Fragment key={
-                    customKey
-                        ? item[customKey] as React.Key
-                        : index
-                }>
-                    {renderItem(item, {
-                        index,
-                        listDecoration: listDecoration ? listDecorationMap[listDecoration] : null
-                    })}
-                </React.Fragment>
-            ))
-            }
-        </ul >
-    )
+export function List<T>({
+  items,
+  renderItem,
+  customKey,
+  listDecoration,
+  ...props
+}: ListProps<T>) {
+  if (!items) return null;
+  return (
+    <ul {...props}>
+      {items.map((item, index) => (
+        <React.Fragment
+          key={customKey ? (item[customKey] as React.Key) : index}
+        >
+          {renderItem(item, {
+            index,
+            listDecoration: listDecoration
+              ? listDecorationMap[listDecoration]
+              : null,
+          })}
+        </React.Fragment>
+      ))}
+    </ul>
+  );
 }
 
 interface ListItemProps<T> extends React.HTMLAttributes<HTMLLIElement> {
-    options: ListItemOptions
+  options: ListItemOptions;
 }
 
 type ListItemOptions = {
-    listDecoration: React.ReactNode | ((index: number) => React.ReactNode)
-    index: number
-}
+  listDecoration: React.ReactNode | ((index: number) => React.ReactNode);
+  index: number;
+};
 
-export function ListItem<T>({ options, children, className, ...props }: ListItemProps<T>) {
-    const { listDecoration, index } = options
+export function ListItem<T>({
+  options,
+  children,
+  className,
+  ...props
+}: ListItemProps<T>) {
+  const { listDecoration, index } = options;
 
-    return <li {...props} className={cn('flex items-center gap-1', className)}>
-        {typeof listDecoration === 'function' ? listDecoration(index) : listDecoration}
-        {children}
+  return (
+    <li {...props} className={cn("flex items-center gap-1", className)}>
+      {typeof listDecoration === "function"
+        ? listDecoration(index)
+        : listDecoration}
+      {children}
     </li>
+  );
 }
-
-
 
 // interface ListProps<T> extends React.HTMLAttributes<HTMLUListElement> {
 //     items?: T[] | null;
@@ -92,4 +102,3 @@ export function ListItem<T>({ options, children, className, ...props }: ListItem
 //         </ul >
 //     )
 // }
-

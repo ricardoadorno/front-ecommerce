@@ -1,35 +1,37 @@
-import ApiService from './api-service';
+import ApiService from "./api-service";
 
 type LoginCredentialsResponse = {
-    accessToken: string;
-    refreshToken: string;
-}
+  accessToken: string;
+  refreshToken: string;
+};
 
 export default class AuthService extends ApiService {
-    constructor() {
-        super('auth');
+  constructor() {
+    super("auth");
+  }
+
+  async login(body: { email: string; password: string }) {
+    try {
+      const { data } = await this.http.post<LoginCredentialsResponse>(
+        "login",
+        body,
+      );
+
+      this.onSuccess("Login successful");
+
+      return data;
+    } catch (error) {
+      throw this.handleError(error);
     }
+  }
 
-    async login(body: { email: string, password: string }) {
-        try {
-        const {data} = await this.http.post<LoginCredentialsResponse>('login', body);
+  // async refreshToken(refreshToken: string) {
+  //     try {
+  //     const {data} = await this.http.post<LoginCredentialsResponse>('refresh', { refreshToken });
 
-        this.onSuccess('Login successful');
-
-        return data;
-        } catch (error) {
-            throw  this.handleError(error);
-        }
-    }
-
-    // async refreshToken(refreshToken: string) {
-    //     try {
-    //     const {data} = await this.http.post<LoginCredentialsResponse>('refresh', { refreshToken });
-
-    //     return data;
-    //     } catch (error) {
-    //         throw  this.handleError(error);
-    //     }
-    // }
-
+  //     return data;
+  //     } catch (error) {
+  //         throw  this.handleError(error);
+  //     }
+  // }
 }

@@ -1,25 +1,24 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
-import HomePage from './pages/home-page';
-import DefaultLayout from './layout/default';
-import PublicLayout from './layout/public';
-import LoginPage from './pages/public/login';
-import RegisterPage from './pages/public/register';
-import { getCookie } from './services/cookies';
-import { toast } from './hooks/use-toast';
-import AboutPage from './pages/about-page';
-import ShopPage from './pages/shop/shop-page';
-import ItemPage from './pages/item-page';
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import DefaultLayout from "./layout/default";
+import PublicLayout from "./layout/public";
+import LoginPage from "./pages/public/login";
+import RegisterPage from "./pages/public/register";
+import { getCookie } from "./services/cookies";
+import { toast } from "./hooks/use-toast";
+import AboutPage from "./pages/about-page";
+import ShopPage from "./pages/shop/shop-page";
+import ItemPage from "./pages/item/item-page";
 
-const ProtectedRoute: any = ({ element }: { element: React.ReactNode }) => {
-  const accessToken = getCookie('accessToken');
+const ProtectedRoute = ({ element }: { element: React.ReactNode }) => {
+  const accessToken = getCookie("accessToken");
 
   if (!accessToken) {
     toast({
-      title: 'Session expired',
-      variant: 'destructive'
-    })
+      title: "Session expired",
+      variant: "destructive",
+    });
 
-    return <Navigate to='/' />;
+    return <Navigate to="/" />;
   }
   return element;
 };
@@ -36,32 +35,27 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegisterPage />,
-      }
-    ]
+      },
+    ],
   },
   {
     path: "/",
     element: <ProtectedRoute element={<DefaultLayout />} />,
     children: [
       {
-        path: "/home",
-        element: <HomePage />,
-      },
-      {
         path: "/shop",
-        element: <ShopPage />
+        element: <ShopPage />,
       },
       {
         path: "/about",
-        element: <AboutPage />
+        element: <AboutPage />,
       },
       {
         path: "/item/:id",
-        element: <ItemPage />
-      }
-    ]
-  }
-
+        element: <ItemPage />,
+      },
+    ],
+  },
 ]);
 
 export default router;

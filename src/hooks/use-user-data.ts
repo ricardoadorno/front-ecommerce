@@ -1,26 +1,27 @@
-import { User } from '@/common/types'
-import { getCookie } from '@/services/cookies'
-import { jwtDecode, JwtPayload } from 'jwt-decode'
-import { useEffect, useState } from 'react'
+import { User } from "@/common/types/user";
+import { getCookie } from "@/services/cookies";
+import { jwtDecode, JwtPayload } from "jwt-decode";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function useUserData() {
-    const token = getCookie('accessToken') ?? ''
+  const navigate = useNavigate();
+  const token = getCookie("accessToken");
 
-    const decodedData = jwtDecode<JwtPayload & User>(token)
+  if (!token) {
+    navigate("/login");
+  }
 
-    const [user, setUser] = useState<User | null>(null)
+  const decodedData = jwtDecode<JwtPayload & User>(token!);
 
-    useEffect(() => {
-        if (decodedData) {
-            setUser({
-                id: decodedData.id,
-                username: decodedData.username,
-                email: decodedData.email
-            })
-        }
-    }, [decodedData])
+  const [user, setUser] = useState<User>({
+    id: decodedData.id,
+    username: decodedData.username,
+    email: decodedData.email,
+  });
 
-    return {
-        user
-    }
+  return {
+    user,
+    setUser,
+  };
 }
